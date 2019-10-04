@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/etudiants/siscol/p/plard_a/dev/cs/cs-rdf/cs-rdf.csproj": {}
+    "/etudiants/siscol/p/plard_a/dev/cs-rdf/cs-rdf.csproj": {}
   },
   "projects": {
-    "/etudiants/siscol/p/plard_a/dev/cs/cs-rdf/cs-rdf.csproj": {
+    "/etudiants/siscol/p/plard_a/dev/cs-rdf/cs-rdf.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/etudiants/siscol/p/plard_a/dev/cs/cs-rdf/cs-rdf.csproj",
+        "projectUniqueName": "/etudiants/siscol/p/plard_a/dev/cs-rdf/cs-rdf.csproj",
         "projectName": "cs-rdf",
-        "projectPath": "/etudiants/siscol/p/plard_a/dev/cs/cs-rdf/cs-rdf.csproj",
+        "projectPath": "/etudiants/siscol/p/plard_a/dev/cs-rdf/cs-rdf.csproj",
         "packagesPath": "/etudiants/siscol/p/plard_a/.nuget/packages/",
-        "outputPath": "/etudiants/siscol/p/plard_a/dev/cs/cs-rdf/obj/",
+        "outputPath": "/etudiants/siscol/p/plard_a/dev/cs-rdf/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
