@@ -1,55 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+const FetchData = (props) => {
 
-  constructor (props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
+	const [data, setData] = useState();
 
-    fetch('api/SampleData/WeatherForecasts')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ forecasts: data, loading: false });
-      });
-  }
+	useEffect(() => {
 
-  static renderForecastsTable (forecasts) {
-    return (
-      <table className='table table-striped'>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+		const fetchString = async () => {
+			const req = await fetch('sampleAPI');
+			const localdata = await req.json();
 
-  render () {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+			setData(localdata);
+		}
 
-    return (
-      <div>
-        <h1>Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
+		fetchString();
+
+		return function cleanup() {
+			setData('');
+		}
+	}, []);
+
+	return (
+		<React.Fragment>
+			<p>Hello</p>
+			<p>Fetched Data from c# backend: {data}</p>
+		</React.Fragment>
+	)
 }
+
+export default FetchData;
