@@ -63,7 +63,6 @@ namespace cs_rdf
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
