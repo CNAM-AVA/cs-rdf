@@ -14,7 +14,21 @@ namespace cs_rdf.Controllers
         [HttpGet]
         public IEnumerable<String> Get()
         {
-            return Enumerable.Range(1, 1).Select(index => new String("Hello")).ToArray();
+            return Enumerable.Range(1, 1).Select(index => new String("Hello world !!")).ToArray();
         }
     }
 }
+
+/*
+SELECT ?logiciel ?nom ?wiki ?photo ?resume 
+WHERE {
+  ?logiciel a dbo:Software ;
+    dbo:abstract ?resume ;
+    rdfs:label ?nom ;
+    foaf:isPrimaryTopicOf ?wiki ;
+    dbo:thumbnail ?photo
+  FILTER langMatches(lang(?resume), 'fr')
+  FILTER langMatches(lang(?nom), 'fr')
+}
+LIMIT 20
+*/
