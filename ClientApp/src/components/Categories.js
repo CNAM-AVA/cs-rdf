@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     Card, CardBody,
-    CardTitle, Collapse, Button,
+    CardTitle, Collapse,
     Container, Row, Col
 } from 'reactstrap';
 import './Categories.css';
@@ -10,7 +10,6 @@ const Categories = (props) => {
 
     const [categories, setCategories] = useState([]);
     const [collapse, setCollapse] = useState(false);
-    const [buttonText, setButtonText] = useState("V");
 
     useEffect(() => {
         // Fetch the categories
@@ -36,7 +35,6 @@ const Categories = (props) => {
         <div>
             <Card inverse color="primary">
                 <CardBody>
-                    <Container fluid>
                         <Row>
                             <Col xs="10">
                                 <CardTitle>Catégories</CardTitle>
@@ -52,12 +50,11 @@ const Categories = (props) => {
                             <Row>
                                 <Col xs="12">
                                     {
-                                        categories.map(category => <a key={category}>{category}</a>)
+                                        categories.map(category => <button key={category}>{category}</button>)
                                     }
                                 </Col>
                             </Row>
                         </Collapse>
-                    </Container>
                 </CardBody>
             </Card>
         </div>
