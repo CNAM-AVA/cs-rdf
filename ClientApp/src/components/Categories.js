@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Card, CardBody,
     CardTitle, Collapse,
-    Container, Row, Col
+    Row, Col
 } from 'reactstrap';
 import './Categories.css';
 
@@ -36,8 +36,13 @@ const Categories = (props) => {
             <Card inverse color="primary">
                 <CardBody>
                         <Row>
+                            <Col xs="12">
+                                <input className="search-input" placeholder="New search" onKeyPress={props.handleSubmit} onChange={props.handleSearch} />
+                            </Col>
+                        </Row>
+                        <Row>
                             <Col xs="10">
-                                <CardTitle>Catégories</CardTitle>
+                                <p>Catégories</p>
                             </Col>
                             <Col xs="2">
 

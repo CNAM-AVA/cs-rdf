@@ -8,7 +8,7 @@ input {
 }
 
 .search {
-    top: calc(50vh - 90px);
+    top: calc(45vh - 90px);
     left: 10%;
 }
 
