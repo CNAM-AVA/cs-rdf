@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     Card, CardBody,
-    CardTitle, Collapse,
+    Collapse,
     Row, Col
 } from 'reactstrap';
 import './Categories.css';
@@ -32,7 +32,7 @@ const Categories = (props) => {
     }
 
     return (
-        <div>
+        <div className="tool-box">
             <Card inverse color="primary">
                 <CardBody>
                         <Row>

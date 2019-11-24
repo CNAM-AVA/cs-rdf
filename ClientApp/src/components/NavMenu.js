@@ -13,14 +13,14 @@ const NavMenu = (props) => {
 
 	return (
 		<header>
-			<Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+			<Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white mb-3" dark>
 				<Container>
 					<NavbarBrand tag={Link} to="/">cs_rdf</NavbarBrand>
 					<NavbarToggler onClick={toggleNavbar} className="mr-2" />
 					<Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={open} navbar>
 						<ul className="navbar-nav flex-grow">
 							<NavItem>
-								<NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+								<NavLink tag={Link} className="text-light" to="/fetch-data">Fetch data</NavLink>
 							</NavItem>
 						</ul>
 					</Collapse>
