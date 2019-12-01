@@ -1,0 +1,26 @@
+
+
+input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.search {
+    top: calc(45vh - 90px);
+    left: 10%;
+}
+
+@media (max-width: 576px) {
+    .search {
+        left: 0;
+        top: 20px;
+    }
+}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
