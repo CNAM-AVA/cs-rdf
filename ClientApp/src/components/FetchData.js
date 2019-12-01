@@ -7,7 +7,7 @@ const FetchData = (props) => {
 	useEffect(() => {
 
 		const fetchString = async () => {
-			const req = await fetch('GameAPI');
+			const req = await fetch('GamesAPI');
 			const localdata = await req.json();
 			setData(localdata);
 		}
