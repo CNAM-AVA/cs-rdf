@@ -6,10 +6,29 @@ const GameModal = forwardRef((props, ref) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState({});
-
+    const [infos, setInfos] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const dataHeaders = null;
+    
     function open(data) {
         setData(data);
         setIsOpen(true);
+        // fetch('https://jsonplaceholder.typicode.com/todos/1')
+        //     .then(response => response.json())
+        //     .then(json => console.log(json));
+
+        fetch('https://localhost:5001/GameAPI?game='+data.id)
+            .then(res => res.json())
+            // .then(data => setInfos(data));
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setInfos(result);
+                },
+                (error) => {
+                    setIsLoaded(false);
+                    console.log(error);
+                });
     }
 
     function close() {
@@ -18,6 +37,20 @@ const GameModal = forwardRef((props, ref) => {
 
     function toggle() {
         setIsOpen(!isOpen);
+    }
+
+    function showInfos(infos) {
+        console.log(infos);
+        return (
+            <div>
+                <p>Nom: {infos["Jeu"]["value"]}</p>
+                <p>Genre: {infos["Genre"]["uri"]}</p>
+                <p>Developpeur: {infos["Developpeur"]["uri"]}</p>
+                <p>Plateforme: {infos["Plateforme"]["uri"]}</p>
+                <p>Resumé: {infos["Resume"]["value"]}</p>
+                <p>Wiki: <a href='{infos["Wiki"]["uri"]}'>{infos["Wiki"]["uri"]}></a></p>
+            </div>
+        )
     }
 
     useImperativeHandle(ref, () => {
@@ -30,8 +63,13 @@ const GameModal = forwardRef((props, ref) => {
 
     return(
         <Modal isOpen={isOpen} toggle={toggle}>
-            <img src={data.image} className="modal-image"/>
-            <p>{data.name}</p>
+            <div>
+                <img src={data.image} className="modal-image"/>
+                <p>{data.name}</p>
+                <p>{ isLoaded ?
+                    showInfos(infos[0]) : ''
+                }</p>
+            </div>
         </Modal>
     )
 })

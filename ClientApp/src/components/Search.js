@@ -17,6 +17,7 @@ const Search = (props) => {
             price: 69.99
         },
         {
+            id: "Death_Stranding",
             name: "Death Stranding",
             image: "http://image.jeuxvideo.com/medias-sm/157245/1572454042-5093-jaquette-avant.jpg",
             price: 70
@@ -27,11 +28,13 @@ const Search = (props) => {
             price: 70
         },
         {
+            id: "The_Legend_of_Zelda:_Breath_of_the_Wild",
             name: "The Legend of Zelda: Breath of the Wild",
             image: "https://images-na.ssl-images-amazon.com/images/I/71kZkXN3MAL.jpg",
             price: 70
         },
         {
+            id: "Red_Dead_Redemption_2",
             name: "Red Dead Redemption 2",
             image: "https://i.jeuxactus.com/datas/jeux/r/e/red-dead-redemption-2/l/red-dead-redemption-2-jaq-5aea4be9c5b3d.jpg",
             price: 70
