@@ -1,4 +1,4 @@
-import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react'
+import React, {useState, forwardRef, useImperativeHandle} from 'react'
 import {Modal} from 'reactstrap'
 import './GameModal.css'
 
@@ -30,7 +30,7 @@ const GameModal = forwardRef((props, ref) => {
 
     return(
         <Modal isOpen={isOpen} toggle={toggle}>
-            <img src={data.image} className="modal-image"/>
+            <img src={data.image} alt="alt" className="modal-image"/>
             <p>{data.name}</p>
         </Modal>
     )

@@ -11,41 +11,19 @@ const Search = (props) => {
     const [loading, setLoading] = useState(false);
     const modalRef = useRef(null);
     const [result, setResult] = useState([
-        {
-            name: "Call of duty",
-            image: "https://s2.gaming-cdn.com/images/products/4810/271x377/luigis-mansion-3-switch-cover.jpg",
-            price: 69.99
-        },
-        {
-            name: "Death Stranding",
-            image: "http://image.jeuxvideo.com/medias-sm/157245/1572454042-5093-jaquette-avant.jpg",
-            price: 70
-        },
-        {
-            name: "Pokemon Shield",
-            image: "https://s3.gaming-cdn.com/images/products/4076/orig/pokemon-shield-switch-cover.jpg",
-            price: 70
-        },
-        {
-            name: "The Legend of Zelda: Breath of the Wild",
-            image: "https://images-na.ssl-images-amazon.com/images/I/71kZkXN3MAL.jpg",
-            price: 70
-        },
-        {
-            name: "Red Dead Redemption 2",
-            image: "https://i.jeuxactus.com/datas/jeux/r/e/red-dead-redemption-2/l/red-dead-redemption-2-jaq-5aea4be9c5b3d.jpg",
-            price: 70
-        }
+       
     ]);
     let history = useHistory();
 
     useEffect(() => {
         const waitForResults = async () => {
             setLoading(true);
-            await fetchData();
+            let req = await fetch('/GamesAPI' + q); // Original q = '?q=<query>'
+            let data = await req.json();
+            console.log(data)
+            setResult(data)
             setLoading(false);
         }
-
         waitForResults()
     }, [])
 
@@ -65,11 +43,11 @@ const Search = (props) => {
     }
 
     async function fetchData() {
-        await new Promise(resolve => {
-            setTimeout(resolve, 3000);
-        })
-
-        setResult(result);
+        setLoading(true);
+        let req = await fetch('/GamesAPI?q=' + q);
+        let data = await req.json();
+        setResult(data);
+        setLoading(false)
     }
 
     return(
@@ -77,7 +55,7 @@ const Search = (props) => {
                 <GameModal ref={modalRef}/>
                 <Row>
                     <Col xs="12" md="9">
-                        <h1>Result set for {props.location.search.replace('?q=', '')}</h1>
+                        <h1>Result set for {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
                     </Col>
                     <Col xs="12" md="3">
                         <Categories handleSearch={handleSearch} handleSubmit={handleSubmit}/>
@@ -98,9 +76,9 @@ const Search = (props) => {
                                 result.map((result, index) =>
                                         <Col xs="6" md="3" key={index}>
                                             <div className="result-container" onClick={() => handleInspect(index)}>
-                                                <img src={result.image} className="result-image"/>
+                                                <img alt="alt" src={result.image} className="result-image"/>
                                             </div>
-                                            <p className="result-caption">{result.name}</p>
+                                            <p className="result-caption">{result.Nom.value}</p>
                                         </Col>
                                 )
                             }
