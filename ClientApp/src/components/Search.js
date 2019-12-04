@@ -20,7 +20,7 @@ const Search = (props) => {
             setLoading(true);
             let req = await fetch('/GamesAPI' + q); // Original q = '?q=<query>'
             let data = await req.json();
-            console.log(data)
+
             setResult(data)
             setLoading(false);
         }
