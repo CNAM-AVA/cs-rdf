@@ -40,7 +40,7 @@ const Categories = (props) => {
                                 <input className="search-input" placeholder="New search" onKeyPress={props.handleSubmit} onChange={props.handleSearch} />
                             </Col>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Col xs="10">
                                 <p>Catégories</p>
                             </Col>
@@ -59,7 +59,7 @@ const Categories = (props) => {
                                     }
                                 </Col>
                             </Row>
-                        </Collapse>
+                        </Collapse> */}
                 </CardBody>
             </Card>
         </div>

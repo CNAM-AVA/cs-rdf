@@ -33,7 +33,7 @@ namespace cs_rdf.Controllers
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
-                    ApiKey = "AIzaSyAjR0UCkf5B3no7H7SsS1P0EmjGGfjVUuU",
+                    ApiKey = "",
                     ApplicationName = this.GetType().ToString()
                 });
 

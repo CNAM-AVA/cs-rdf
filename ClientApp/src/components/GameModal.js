@@ -25,8 +25,6 @@ const GameModal = forwardRef((props, ref) => {
                     id: id,
                     title: title
                 })
-                console.log(title)
-                console.log(id)
             });
 
             setVideos(vids)
@@ -60,6 +58,12 @@ const GameModal = forwardRef((props, ref) => {
                 <Row>
                     <Col xs="12">
                         <ModalHeader align="center">{data.Nom.value}</ModalHeader>
+                    </Col>
+                    <Col xs="12">
+                        <ModalBody align="center">
+                            <p>{data.Resume.value}</p>
+                            <a target="_blank" href={data.Wiki.uri}>Wiki</a>
+                        </ModalBody>
                     </Col>
                 </Row>
                 <Row>

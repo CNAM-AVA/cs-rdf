@@ -21,7 +21,17 @@ const Search = (props) => {
             let req = await fetch('/GamesAPI' + q); // Original q = '?q=<query>'
             let data = await req.json();
 
-            setResult(data)
+            for(let i = 0; i < data.length; i++) {
+                let args = data[i].Logiciel.uri.split("/");
+                let term = args[args.length -1 ].replace("_(video_game)", "").replace("'", "\s");
+                let details = await fetch("/GameAPI?game=" + term);
+                let detailsJson = await details.json();
+
+                data[i].details = detailsJson[0];
+
+            }
+
+            setResult(data);
             setLoading(false);
         }
         waitForResults()
@@ -35,26 +45,47 @@ const Search = (props) => {
         setQ(e.target.value);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         if (e.key === 'Enter') {
-            fetchData();
+            await fetchDetails();
 			history.push(`/search?q=${q}`);
 		}
+    }
+
+    async function fetchDetails() {
+
+        let tmpData = await fetchData();
+
+        console.log(tmpData)
+
+        for(let i = 0; i < tmpData.length; i++) {
+            let args = tmpData[i].Logiciel.uri.split("/");
+            let term = args[args.length -1 ].replace("_(video_game)", "").replace("'", "\s");
+            let details = await fetch("/GameAPI?game=" + term);
+            let detailsJson = await details.json();
+
+            tmpData[i].details = detailsJson[0];
+
+        }
+
+        setResult(tmpData);
+        setLoading(false);
     }
 
     async function fetchData() {
         setLoading(true);
         let req = await fetch('/GamesAPI?q=' + q);
         let data = await req.json();
-        setResult(data);
-        setLoading(false)
+
+        return data;
     }
 
     return(
             <React.Fragment>
-                <GameModal ref={modalRef}/>
                 <Row>
                     <Col xs="12" md="9">
+                        <GameModal ref={modalRef}/>
+
                         <h1>Result set for {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
                     </Col>
                     <Col xs="12" md="3">
