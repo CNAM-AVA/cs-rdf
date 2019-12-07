@@ -32,6 +32,8 @@ const Search = (props) => {
             }
 
             setResult(data);
+
+            console.log(data)
             setLoading(false);
         }
         waitForResults()
@@ -107,7 +109,13 @@ const Search = (props) => {
                                 result.map((result, index) =>
                                         <Col xs="6" md="3" key={index}>
                                             <div className="result-container" onClick={() => handleInspect(index)}>
-                                                <img alt="alt" src={result.image} className="result-image"/>
+                                                { 
+                                                    result.details.Photo ? 
+                                                    <img alt="alt" src={result.details.Photo.uri} className="result-image"/>
+                                                    : 
+                                                    <img alt="alt" src="https://carlisletheacarlisletheatre.org/images/video-game-clipart-cool-9.png" className="result-image"/>
+
+                                                }
                                             </div>
                                             <p className="result-caption">{result.Nom.value}</p>
                                         </Col>
