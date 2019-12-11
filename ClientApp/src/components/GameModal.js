@@ -10,6 +10,9 @@ const GameModal = forwardRef((props, ref) => {
     const [loading, setLoading] = useState(true);
 
     function open(data) {
+
+        console.log(data)
+
         setData(data);
         setLoading(false)
         setIsOpen(true);
@@ -53,16 +56,24 @@ const GameModal = forwardRef((props, ref) => {
     })
 
     function renderData() {
+
+        let genre = data.details.Genre.uri.split("/");
+        genre = genre[genre.length - 1];
+
+        let developper = data.details.Developpeur.uri.split("/");
+        developper = developper[developper.length - 1];
+
         return (
             <React.Fragment>
                 <Row>
                     <Col xs="12">
-                        <ModalHeader align="center">{data.Nom.value}</ModalHeader>
+                        <ModalHeader align="center">{data.Nom.value} - <a href={"/categories?q=" + genre}>{genre}</a></ModalHeader>
                     </Col>
                     <Col xs="12">
-                        <ModalBody align="center">
+                        <ModalBody>
+                            <h2>Développé par {developper} {data.Wiki ? - <a target="_blank" href={data.Wiki.uri}>Wiki</a> : ""} </h2>
                             <p>{data.Resume.value}</p>
-                            <a target="_blank" href={data.Wiki.uri}>Wiki</a>
+                            
                         </ModalBody>
                     </Col>
                 </Row>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useHistory } from "react-router-dom";
 import { Row, Col, Spinner } from 'reactstrap';
-import Categories from './Categories';
+import SearchModal from './SearchModal';
 import './Search.css'
 import GameModal from './GameModal';
 
@@ -91,7 +91,7 @@ const Search = (props) => {
                         <h1>Result set for {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
                     </Col>
                     <Col xs="12" md="3">
-                        <Categories handleSearch={handleSearch} handleSubmit={handleSubmit}/>
+                        <SearchModal handleSearch={handleSearch} handleSubmit={handleSubmit}/>
                     </Col>
                 </Row>
                 <Row>
