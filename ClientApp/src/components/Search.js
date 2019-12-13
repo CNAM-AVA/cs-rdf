@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useHistory } from "react-router-dom";
 import { Row, Col, Spinner } from 'reactstrap';
-import Categories from './Categories';
+import SearchModal from './SearchModal';
 import './Search.css'
 import GameModal from './GameModal';
 
@@ -32,6 +32,8 @@ const Search = (props) => {
             }
 
             setResult(data);
+
+            console.log(data)
             setLoading(false);
         }
         waitForResults()
@@ -89,7 +91,7 @@ const Search = (props) => {
                         <h1>Result set for {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
                     </Col>
                     <Col xs="12" md="3">
-                        <Categories handleSearch={handleSearch} handleSubmit={handleSubmit}/>
+                        <SearchModal handleSearch={handleSearch} handleSubmit={handleSubmit}/>
                     </Col>
                 </Row>
                 <Row>
@@ -107,7 +109,13 @@ const Search = (props) => {
                                 result.map((result, index) =>
                                         <Col xs="6" md="3" key={index}>
                                             <div className="result-container" onClick={() => handleInspect(index)}>
-                                                <img alt="alt" src={result.image} className="result-image"/>
+                                                { 
+                                                    result.details.Photo ? 
+                                                    <img alt="alt" src={result.details.Photo.uri} className="result-image"/>
+                                                    : 
+                                                    <img alt="alt" src="https://carlisletheacarlisletheatre.org/images/video-game-clipart-cool-9.png" className="result-image"/>
+
+                                                }
                                             </div>
                                             <p className="result-caption">{result.Nom.value}</p>
                                         </Col>

@@ -1,68 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import {
-    Card, CardBody,
-    Collapse,
-    Row, Col
-} from 'reactstrap';
-import './Categories.css';
+import React, {useState, useEffect, useRef} from 'react'
+import { useHistory } from "react-router-dom";
+import { Row, Col, Spinner } from 'reactstrap';
+import './Categories.css'
+import GameModal from './GameModal';
+
 
 const Categories = (props) => {
+    const [q, setQ] = useState(props.location.search);
+    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState([]);
+    const modalRef = useRef(null);
 
-    const [categories, setCategories] = useState([]);
-    const [collapse, setCollapse] = useState(false);
+    const genre = props.location.search.replace('?q=', '').replace(/%20/g, ' ');
 
     useEffect(() => {
-        // Fetch the categories
-        setCategories([
-            'MMO', 'RTS', 'FPS', 'Action', 'Aventure'
-        ])
+        setLoading(true);
+        const fetchGamesFromCategory = async () => {
+            const req = await fetch("/GenreAPI?genre=" + genre);
+            const data = await req.json();
+
+            setResult(data);
+            setLoading(false);
+        }
+
+        fetchGamesFromCategory();
     }, []);
 
-    function toggle() {
-        let icon = document.getElementById('icon');
-        setCollapse(!collapse);
+    function handleInspect(index) {
 
-        if (collapse) {
-            icon.classList.add('plus');
-            icon.classList.remove('remove');
-        } else {
-            icon.classList.add('remove');
-            icon.classList.remove('plus');
+        let tmpPayload = {
+            Nom: {value:  result[index].Nom.value},
+            Resume: result[index].Resume.value,
+            details: result[index]
         }
+
+        modalRef.current.open(tmpPayload);
     }
 
     return (
-        <div className="tool-box">
-            <Card inverse color="primary">
-                <CardBody>
+        <React.Fragment>
+                <Row>
+                    <Col xs="12" md="9">
+                        <GameModal ref={modalRef}/>
+                        <h1>Result set for {genre}</h1>
+                    </Col>
+                  
+                </Row>
+                <Row>
+                </Row>
+                {
+                    loading 
+                    ? (
                         <Row>
-                            <Col xs="12">
-                                <input className="search-input" placeholder="New search" onKeyPress={props.handleSubmit} onChange={props.handleSearch} />
-                            </Col>
+                            <Spinner className="loader" color="primary"/>
                         </Row>
-                        {/* <Row>
-                            <Col xs="10">
-                                <p>Catégories</p>
-                            </Col>
-                            <Col xs="2">
+                    )
+                    : (
+                        <Row className="results-container">
+                           {
+                                result.map((result, index) =>
+                                        <Col xs="6" md="3" key={index}>
+                                            <div className="result-container" onClick={() => handleInspect(index)}>
+                                                { 
+                                                    result.Photo !== undefined ? 
+                                                    <img alt="alt" src={result.Photo.uri} className="result-image"/>
+                                                    : 
+                                                    <img alt="alt" src="https://carlisletheacarlisletheatre.org/images/video-game-clipart-cool-9.png" className="result-image"/>
 
-                                <div id="icon-wrapper" className="icon-wrapper" onClick={toggle}>
-                                    <div id="icon" className="plus icon"></div>
-                                </div>
-                            </Col>
+                                                }
+                                            </div>
+                                            <p className="result-caption">{result.Nom.value}</p>
+                                        </Col>
+                                )
+                            }
                         </Row>
-                        <Collapse isOpen={collapse}>
-                            <Row>
-                                <Col xs="12">
-                                    {
-                                        categories.map(category => <button key={category}>{category}</button>)
-                                    }
-                                </Col>
-                            </Row>
-                        </Collapse> */}
-                </CardBody>
-            </Card>
-        </div>
+                    )
+                }
+                
+            </React.Fragment>
     )
 }
+
 export default Categories;
