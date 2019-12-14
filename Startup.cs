@@ -22,6 +22,7 @@ namespace cs_rdf
         {
 
             services.AddControllersWithViews();
+            DotNetEnv.Env.Load("./.env");
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

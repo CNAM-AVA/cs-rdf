@@ -60,7 +60,7 @@ const GameModal = forwardRef((props, ref) => {
         let genre = data.details.Genre.uri.split("/");
         genre = genre[genre.length - 1];
 
-        let developper = data.details.Developpeur.uri.split("/");
+        let developper = data.details.Developpeur ? data.details.Developpeur.uri.split("/") : [''];
         developper = developper[developper.length - 1];
 
         return (
