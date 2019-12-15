@@ -1,22 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { useHistory } from "react-router-dom";
 import { Row, Col, Spinner } from 'reactstrap';
 import './Categories.css'
 import GameModal from './GameModal';
 
 
-const Categories = (props) => {
+const Series = (props) => {
     const [q, setQ] = useState(props.location.search);
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState([]);
     const modalRef = useRef(null);
 
-    const genre = props.location.search.replace('?q=', '').replace(/%20/g, ' ');
+    const serie = props.location.search.replace('?q=', '').replace(/%20/g, ' ');
 
     useEffect(() => {
         setLoading(true);
         const fetchGamesFromCategory = async () => {
-            const req = await fetch("/GenreAPI?genre=" + genre);
+            const req = await fetch("/SerieAPI?serie=" + serie);
             const data = await req.json();
 
             setResult(data);
@@ -42,7 +41,7 @@ const Categories = (props) => {
                 <Row>
                     <Col xs="12" md="9">
                         <GameModal ref={modalRef}/>
-                        <h1>Résultats de la recherche {genre}</h1>
+                        <h1>Résultats de la recherche {serie}</h1>
                     </Col>
                   
                 </Row>
@@ -81,4 +80,4 @@ const Categories = (props) => {
     )
 }
 
-export default Categories;
+export default Series;

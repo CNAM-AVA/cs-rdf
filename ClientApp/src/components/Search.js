@@ -88,7 +88,7 @@ const Search = (props) => {
                     <Col xs="12" md="9">
                         <GameModal ref={modalRef}/>
 
-                        <h1>Result set for {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
+                        <h1>Réultats de la recherche {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
                     </Col>
                     <Col xs="12" md="3">
                         <SearchModal handleSearch={handleSearch} handleSubmit={handleSubmit}/>
