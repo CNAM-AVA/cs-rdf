@@ -15,6 +15,46 @@ const Search = (props) => {
     ]);
     let history = useHistory();
 
+    function merge(data){
+        let prevId = "";
+        let filteredData = [];
+        // let cols = [];
+        let previous = {};
+        let current = {};
+        let prevPlat;
+        let currPlat;
+        data.forEach((row) => 
+        {
+            let id = row["Logiciel"]["uri"];
+            if(prevId !== id)
+            {
+                prevId = id;
+                current = row;
+                filteredData.push(row);
+                console.log('prevId : ', prevId);
+            } 
+            // else 
+            // {
+            //     previous = current;
+            //     current = row;
+            //     if(previous["Plateforme"]["uri"] !== current["Plateforme"]["uri"]){
+            //         prevPlat = previous["Plateforme"]["uri"].substring(previous["Plateforme"]["uri"].lastIndexOf('/') + 1).replace(/\-/g, " ");
+            //         currPlat = current["Plateforme"]["uri"].substring(current["Plateforme"]["uri"].lastIndexOf('/') + 1).replace(/\_/g, " ");
+            //         console.log(filteredData[filteredData.length - 1]["Plateforme"]);
+            //         if(filteredData[filteredData.length - 1]["Plateforme"]["uri"]){
+
+            //             filteredData[filteredData.length - 1]["Plateforme"] = [prevPlat, currPlat];
+            //         }
+            //         else
+            //         {
+            //             filteredData[filteredData.length - 1]["Plateforme"].push(currPlat);
+            //         }
+            //     }
+            // }
+        });
+        return filteredData;
+    }
+
     useEffect(() => {
         const waitForResults = async () => {
             setLoading(true);
@@ -31,9 +71,11 @@ const Search = (props) => {
 
             }
 
-            setResult(data);
+            // setResult(data);
+            let mergedData = merge(data);
+            setResult(mergedData);
 
-            console.log(data)
+            console.log(mergedData)
             setLoading(false);
         }
         waitForResults()
