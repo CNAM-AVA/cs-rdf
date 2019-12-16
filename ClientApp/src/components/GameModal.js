@@ -56,7 +56,6 @@ const GameModal = forwardRef((props, ref) => {
     })
 
     function renderData() {
-
         let genre;
         let serie;
         let wiki;
@@ -70,7 +69,11 @@ const GameModal = forwardRef((props, ref) => {
             wiki = data.Wiki.uri;
         }
         let developper = data.details.Developpeur ? data.details.Developpeur.uri.split("/") : [''];
-        developper = developper[developper.length - 1];
+        developper = developper[developper.length - 1].replace(/[-_]/g, ' ');
+        
+        let genre = data["Genre"]["uri"].split("/");
+        let genreURL = genre[genre.length - 1];
+        genre = genreURL.replace(/[-_]/g, ' ');
 
         if (data.details.Series) {
             serie = data.details.Series.uri.split("/");
@@ -81,7 +84,7 @@ const GameModal = forwardRef((props, ref) => {
             <React.Fragment>
                 <Row>
                     <Col xs="12">
-                        <ModalHeader align="center">{data.Nom.value} - <a href={"/categories?q=" + genre}>{genre}</a></ModalHeader>
+                        <ModalHeader align="center">{data.Nom.value} - <a href={"/categories?q=" + genreURL}>{genre}</a></ModalHeader>
                     </Col>
                     <Col xs="12">
                         <ModalBody>

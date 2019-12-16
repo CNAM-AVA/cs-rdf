@@ -39,13 +39,20 @@ namespace cs_rdf.Controllers
 						?Logiciel a dbo:Software;
 						dbo:abstract ?Resume;
 						rdfs:label ?Nom;
-						foaf:isPrimaryTopicOf ?Wiki
-						OPTIONAL { ?Logiciel dbo:thumbnail ?Photo } 
+						dbo:abstract ?Resume
+						OPTIONAL { ?Logiciel dbo:thumbnail ?Photo }
+						OPTIONAL { ?Logiciel dbo:genre ?Genre }
+						OPTIONAL { ?Logiciel dbo:developer ?Developpeur }
+						OPTIONAL { ?Logiciel dbo:series ?Series }
+						OPTIONAL { ?Logiciel dbo:producer ?Producteur }
+						OPTIONAL { ?Logiciel dbo:releaseDate ?Date_de_sortie }
+						OPTIONAL { ?Logiciel dbo:director ?Realisateur }
+						OPTIONAL { ?Logiciel foaf:isPrimaryTopicOf ?Wiki }
 						FILTER langMatches(lang(?Resume), 'fr') 
 						FILTER langMatches(lang(?Nom), 'fr') 
 						FILTER regex(?Nom, ""^"+q+@""", ""i"") 
 					}
-					LIMIT 50";
+					LIMIT 40";
 
 					SparqlResultSet results = endpoint.QueryWithResultSet(query);
 					// SparqlResultSet results = endpoint.QueryWithResultSet("SELECT * WHERE { ?logiciel a dbo:Software } LIMIT 20");
