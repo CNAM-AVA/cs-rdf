@@ -99,15 +99,15 @@ const Search = (props) => {
         let req = await fetch('/GamesAPI?q=' + q); // Original q = '?q=<query>'
         let data = await req.json();
 
-        for(let i = 0; i < data.length; i++) {
-            let args = data[i].Logiciel.uri.split("/");
-            let term = args[args.length -1 ].replace("_(video_game)", "").replace("'", "\s");
-            let details = await fetch("/GameAPI?game=" + term);
-            let detailsJson = await details.json();
+        // for(let i = 0; i < data.length; i++) {
+        //     let args = data[i].Logiciel.uri.split("/");
+        //     let term = args[args.length -1 ].replace("_(video_game)", "").replace("'", "\s");
+        //     let details = await fetch("/GameAPI?game=" + term);
+        //     let detailsJson = await details.json();
 
-            data[i].details = detailsJson[0];
+        //     data[i].details = detailsJson[0];
 
-        }
+        // }
         
         let mergedData = merge(data);
         console.log(mergedData);
@@ -143,8 +143,8 @@ const Search = (props) => {
                                         <Col xs="6" md="3" key={index}>
                                             <div className="result-container" onClick={() => handleInspect(index)}>
                                                 { 
-                                                    result.details.Photo ? 
-                                                    <img alt="alt" src={result.details.Photo.uri} className="result-image"/>
+                                                    result["Photo"] ? 
+                                                    <img alt="alt" src={result["Photo"]["uri"]} className="result-image"/>
                                                     : 
                                                     <img alt="alt" src="https://carlisletheacarlisletheatre.org/images/video-game-clipart-cool-9.png" className="result-image"/>
 

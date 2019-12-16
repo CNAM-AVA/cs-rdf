@@ -45,16 +45,14 @@ namespace cs_rdf.Controllers
 						OPTIONAL { ?Logiciel dbo:developer ?Developpeur }
 						OPTIONAL { ?Logiciel dbo:series ?Series }
 						OPTIONAL { ?Logiciel dbo:producer ?Producteur }
-						OPTIONAL { ?Logiciel dbo:computingPlatform ?Plateforme }
 						OPTIONAL { ?Logiciel dbo:releaseDate ?Date_de_sortie }
 						OPTIONAL { ?Logiciel dbo:director ?Realisateur }
-						OPTIONAL { ?Logiciel dbp:modes ?Modes_de_jeu }
 						OPTIONAL { ?Logiciel foaf:isPrimaryTopicOf ?Wiki }
 						FILTER langMatches(lang(?Resume), 'fr') 
 						FILTER langMatches(lang(?Nom), 'fr') 
 						FILTER regex(?Nom, """+q+@""", ""i"") 
 					}
-					LIMIT 20";
+					LIMIT 40";
 
 					SparqlResultSet results = endpoint.QueryWithResultSet(query);
 
