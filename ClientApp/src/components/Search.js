@@ -18,39 +18,14 @@ const Search = (props) => {
     function merge(data){
         let prevId = [];
         let filteredData = [];
-        // let cols = [];
-        // let previous = {};
-        // let current = {};
-        // let prevPlat;
-        // let currPlat;
         data.forEach((row) => 
         {
             let id = row["Logiciel"]["uri"];
             if(!prevId.includes(id))
             {
                 prevId.push(id);
-                // current = row;
                 filteredData.push(row);
-                console.log('prevId : ', prevId);
             } 
-            // else 
-            // {
-            //     previous = current;
-            //     current = row;
-            //     if(previous["Plateforme"]["uri"] !== current["Plateforme"]["uri"]){
-            //         prevPlat = previous["Plateforme"]["uri"].substring(previous["Plateforme"]["uri"].lastIndexOf('/') + 1).replace(/\-/g, " ");
-            //         currPlat = current["Plateforme"]["uri"].substring(current["Plateforme"]["uri"].lastIndexOf('/') + 1).replace(/\_/g, " ");
-            //         console.log(filteredData[filteredData.length - 1]["Plateforme"]);
-            //         if(filteredData[filteredData.length - 1]["Plateforme"]["uri"]){
-
-            //             filteredData[filteredData.length - 1]["Plateforme"] = [prevPlat, currPlat];
-            //         }
-            //         else
-            //         {
-            //             filteredData[filteredData.length - 1]["Plateforme"].push(currPlat);
-            //         }
-            //     }
-            // }
         });
         return filteredData;
     }
@@ -58,7 +33,6 @@ const Search = (props) => {
     useEffect(() => {
         const waitForResults = async () => {
             setLoading(true);
-            console.log(q)
             let tmpData = await fetchData();
             setResult(tmpData);
             setLoading(false);
@@ -90,27 +64,23 @@ const Search = (props) => {
     }
 
     async function fetchData() {
-        // setLoading(true);
-        // let req = await fetch('/GamesAPI?q=' + q);
-        // let data = await req.json();
 
-        // return data;
-
-        let req = await fetch('/GamesAPI?q=' + q); // Original q = '?q=<query>'
+        setLoading(true);
+        let req = await fetch('/GamesAPI?q=' + q);
         let data = await req.json();
-
-        // for(let i = 0; i < data.length; i++) {
-        //     let args = data[i].Logiciel.uri.split("/");
-        //     let term = args[args.length -1 ].replace("_(video_game)", "").replace("'", "\s");
-        //     let details = await fetch("/GameAPI?game=" + term);
-        //     let detailsJson = await details.json();
-
-        //     data[i].details = detailsJson[0];
-
-        // }
-        
         let mergedData = merge(data);
-        console.log(mergedData);
+
+
+        for (let i = 0; i  < mergedData.length; i++) {
+            let game = mergedData[i].Nom.value;
+            let img = await fetch('https://api.rawg.io/api/games?page_size=1&search=' + encodeURI(game));
+            let imgData = await img.json();
+            let imgurl = imgData.results[0].background_image;
+        
+            mergedData[i].Photo = {uri: imgurl};
+        }
+        
+        setLoading(false);
 
         return mergedData;
     }

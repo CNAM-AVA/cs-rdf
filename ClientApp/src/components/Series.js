@@ -41,7 +41,16 @@ const Series = (props) => {
         let data = await req.json();
         
         let mergedData = merge(data);
-        console.log(mergedData);
+
+        for (let i = 0; i  < mergedData.length; i++) {
+            let game = mergedData[i].Nom.value;
+            let img = await fetch('https://api.rawg.io/api/games?page_size=1&search=' + encodeURI(game));
+            let imgData = await img.json();
+            let imgurl = imgData.results[0].background_image;
+        
+            mergedData[i].Photo = {uri: imgurl};
+        }
+        
 
         return mergedData;
     }
@@ -56,7 +65,6 @@ const Series = (props) => {
             {
                 prevId.push(id);
                 filteredData.push(row);
-                console.log('prevId : ', prevId);
             }
         });
         return filteredData;

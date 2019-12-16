@@ -19,6 +19,15 @@ const Categories = (props) => {
             const req = await fetch("/GenreAPI?genre=" + genre);
             const data = await req.json();
 
+            for (let i = 0; i  < data.length; i++) {
+                let game = data[i].Nom.value;
+                let img = await fetch('https://api.rawg.io/api/games?page_size=1&search=' + encodeURI(game));
+                let imgData = await img.json();
+                let imgurl = imgData.results[0].background_image;
+            
+                data[i].Photo = {uri: imgurl};
+            }
+
             setResult(data);
             setLoading(false);
         }
