@@ -16,20 +16,20 @@ const Search = (props) => {
     let history = useHistory();
 
     function merge(data){
-        let prevId = "";
+        let prevId = [];
         let filteredData = [];
         // let cols = [];
-        let previous = {};
-        let current = {};
-        let prevPlat;
-        let currPlat;
+        // let previous = {};
+        // let current = {};
+        // let prevPlat;
+        // let currPlat;
         data.forEach((row) => 
         {
             let id = row["Logiciel"]["uri"];
-            if(prevId !== id)
+            if(!prevId.includes(id))
             {
-                prevId = id;
-                current = row;
+                prevId.push(id);
+                // current = row;
                 filteredData.push(row);
                 console.log('prevId : ', prevId);
             } 
@@ -121,7 +121,7 @@ const Search = (props) => {
                     <Col xs="12" md="9">
                         <GameModal ref={modalRef}/>
 
-                        <h1>Réultats de la recherche {props.location.search.replace('?q=', '').replace(/%20/g, ' ')}</h1>
+                        <h1>Réultats de la recherche {decodeURI(q)}</h1>
                     </Col>
                     <Col xs="12" md="3">
                         <SearchModal handleSearch={handleSearch} handleSubmit={handleSubmit}/>

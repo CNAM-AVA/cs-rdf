@@ -57,27 +57,29 @@ const GameModal = forwardRef((props, ref) => {
 
     function renderData() {
         let genre;
+        let genreURL;
         let serie;
+        let serieURL;
         let wiki;
         
-        if (data.details.Genre) {
-            genre = data.details.Genre.uri.split("/");
-            genre = genre[genre.length - 1];
+        if (data["Genre"]) {
+            genreURL = data["Genre"]["uri"].split("/");
+            genreURL = genreURL[genreURL.length - 1];
+            genre = genreURL.replace(/[-_]/g, ' ');
         }
 
-        if (data.Wiki) {
+        if (data["Wiki"]) {
             wiki = data.Wiki.uri;
         }
-        let developper = data.details.Developpeur ? data.details.Developpeur.uri.split("/") : [''];
-        developper = developper[developper.length - 1].replace(/[-_]/g, ' ');
-        
-        let genre = data["Genre"]["uri"].split("/");
-        let genreURL = genre[genre.length - 1];
-        genre = genreURL.replace(/[-_]/g, ' ');
 
-        if (data.details.Series) {
-            serie = data.details.Series.uri.split("/");
-            serie = serie[serie.length - 1];
+        let developperURL = data["Developpeur"] ? data["Developpeur"]["uri"].split("/") : [''];
+        let developper = developperURL[developperURL.length - 1].replace(/[-_]/g, ' ');
+        
+
+        if (data["Series"]) {
+            serieURL = data["Series"]["uri"].split("/");
+            serieURL = serieURL[serieURL.length - 1];
+            serie = serieURL.replace(/[-_]/g, ' ');
         }
 
         return (
@@ -90,7 +92,7 @@ const GameModal = forwardRef((props, ref) => {
                         <ModalBody>
                             <h2>Développé par {developper}</h2>
                             {wiki ? <a target="_blank" href={wiki}>Wiki</a> : ""}
-                            <p>{serie ? <a href={"/series?q=" + serie}>Séries : {serie}</a> : ""}</p>
+                            <p>{serie ? <a href={"/series?q=" + serieURL}>Séries : {serie}</a> : ""}</p>
                             
                             <p>{data.Resume.value}</p>
                             

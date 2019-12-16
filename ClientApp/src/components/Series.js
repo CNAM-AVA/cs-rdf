@@ -10,14 +10,13 @@ const Series = (props) => {
     const [result, setResult] = useState([]);
     const modalRef = useRef(null);
 
-    const serie = props.location.search.replace('?q=', '').replace(/%20/g, ' ');
+    const serie = decodeURI(props.location.search.replace('?q=', ''));
+    // const serie = props.location.search.replace('?q=', '').replace(/%20/g, ' ');
 
     useEffect(() => {
         setLoading(true);
         const fetchGamesFromCategory = async () => {
-            const req = await fetch("/SerieAPI?serie=" + serie);
-            const data = await req.json();
-
+            const data = await fetchData();
             setResult(data);
             setLoading(false);
         }
@@ -27,13 +26,40 @@ const Series = (props) => {
 
     function handleInspect(index) {
 
-        let tmpPayload = {
-            Nom: {value:  result[index].Nom.value},
-            Resume: result[index].Resume.value,
-            details: result[index]
-        }
+        // let tmpPayload = {
+        //     Nom: {value:  result[index].Nom.value},
+        //     Resume: result[index].Resume.value,
+        //     details: result[index]
+        // }
 
-        modalRef.current.open(tmpPayload);
+        // modalRef.current.open(tmpPayload);
+        modalRef.current.open(result[index]);
+    }
+
+    async function fetchData() {
+        let req = await fetch('/SerieAPI?serie=' + serie); // Original q = '?q=<query>'
+        let data = await req.json();
+        
+        let mergedData = merge(data);
+        console.log(mergedData);
+
+        return mergedData;
+    }
+
+    function merge(data){
+        let prevId = [];
+        let filteredData = [];
+        data.forEach((row) => 
+        {
+            let id = row["Jeu"]["uri"];
+            if(!prevId.includes(id))
+            {
+                prevId.push(id);
+                filteredData.push(row);
+                console.log('prevId : ', prevId);
+            }
+        });
+        return filteredData;
     }
 
     return (
@@ -41,7 +67,7 @@ const Series = (props) => {
                 <Row>
                     <Col xs="12" md="9">
                         <GameModal ref={modalRef}/>
-                        <h1>Résultats de la recherche {serie}</h1>
+                        <h1>Résultats de la recherche {decodeURI(serie)}</h1>
                     </Col>
                   
                 </Row>
