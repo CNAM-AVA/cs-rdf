@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     Card, CardBody,
-    Collapse,
+    // Collapse,
     Row, Col
 } from 'reactstrap';
 import './SearchModal.css';

@@ -29,6 +29,8 @@ namespace cs_rdf.Controllers
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
             SparqlQueryParser parser = new SparqlQueryParser();
 
+            serie = serie.Replace("'", "\\'");
+
             string queryString = @"SELECT DISTINCT * WHERE {
                     ?Jeu a dbo:Software ;
                     dbo:series dbr:"+serie+@" 
@@ -40,6 +42,7 @@ namespace cs_rdf.Controllers
                     OPTIONAL { ?Jeu dbo:series ?Series }
                     OPTIONAL { ?Jeu dbo:producer ?Producteur }
                     OPTIONAL { ?Jeu dbo:abstract ?Resume }
+					OPTIONAL { ?Jeu foaf:isPrimaryTopicOf ?Wiki }
                     FILTER langMatches(lang(?Resume), 'fr')
                     FILTER langMatches(lang(?Nom), 'fr')
                 } GROUP BY ?Jeu LIMIT 30
