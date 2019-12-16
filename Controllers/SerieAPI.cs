@@ -31,7 +31,7 @@ namespace cs_rdf.Controllers
 
             string queryString = @"SELECT DISTINCT * WHERE {
                     ?Jeu a dbo:Software ;
-                    dbo:Series dbr:"+serie+@" 
+                    dbo:series dbr:"+serie+@" 
                     values ?Series {dbr:"+serie+@"}
                     OPTIONAL { ?Jeu rdfs:label ?Nom }
                     OPTIONAL { ?Jeu dbo:thumbnail ?Photo }
