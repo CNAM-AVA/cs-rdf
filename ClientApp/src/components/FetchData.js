@@ -45,7 +45,6 @@ const FetchData = (props) => {
 								<td>{row.logiciel.uri}</td>
 								<td>{row.nom.value}</td>
 								<td>{row.wiki.uri}</td>
-								{/* <td>{row.photo ? row.photo.uri : ''}</td> */}
 								<td>{row.resume.value}</td>
 							</tr>
 							)

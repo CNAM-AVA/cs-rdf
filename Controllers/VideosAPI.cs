@@ -29,7 +29,6 @@ namespace cs_rdf.Controllers
         public string Get() {
 
             string game = HttpContext.Request.Query["q"].ToString();
-            Console.WriteLine(game);
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
@@ -45,11 +44,7 @@ namespace cs_rdf.Controllers
             var searchListResponse = searchListRequest.Execute();
 
             List<string> videos = new List<string>();
-            // List<string> channels = new List<string>();
-            // List<string> playlists = new List<string>();
 
-            // Add each result to the appropriate list, and then display the lists of
-            // matching videos, channels, and playlists.
             foreach (var searchResult in searchListResponse.Items)
             {
                 videos.Add(String.Format("{0} [|{1}|]", searchResult.Snippet.Title, searchResult.Id.VideoId));

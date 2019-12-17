@@ -39,6 +39,7 @@ namespace cs_rdf.Controllers
                     OPTIONAL { ?Jeu dbo:developer ?Developpeur }
                     OPTIONAL { ?Jeu dbo:series ?Series }
                     OPTIONAL { ?Jeu dbo:producer ?Producteur }
+					OPTIONAL { ?Jeu foaf:isPrimaryTopicOf ?Wiki }
                     OPTIONAL { ?Jeu dbo:abstract ?Resume }
                     FILTER langMatches(lang(?Resume), 'fr')
                     FILTER langMatches(lang(?Nom), 'fr')
@@ -51,11 +52,8 @@ namespace cs_rdf.Controllers
 					if(results is SparqlResultSet && results.Any())
 					{
 						SparqlResultSet rset = (SparqlResultSet) results;
-						int nbRes = 0;
 						IEnumerator<KeyValuePair<string, INode>> columns;
 						KeyValuePair<string, INode> col;
-						nbRes = rset.Count();
-						Console.WriteLine(nbRes+" entries found");
 						foreach(SparqlResult line in rset)
 						{
 							columns = line.GetEnumerator();
