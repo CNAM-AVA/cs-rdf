@@ -36,14 +36,7 @@ const Categories = (props) => {
     }, []);
 
     function handleInspect(index) {
-
-        let tmpPayload = {
-            Nom: {value:  result[index].Nom.value},
-            Resume: result[index].Resume.value,
-            details: result[index]
-        }
-
-        modalRef.current.open(tmpPayload);
+        modalRef.current.open(result[index]);
     }
 
     return (

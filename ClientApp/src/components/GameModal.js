@@ -10,9 +10,6 @@ const GameModal = forwardRef((props, ref) => {
     const [loading, setLoading] = useState(true);
 
     function open(data) {
-
-        console.log(data)
-
         setData(data);
         setLoading(false)
         setIsOpen(true);

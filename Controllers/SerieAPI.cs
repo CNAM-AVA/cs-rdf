@@ -54,11 +54,8 @@ namespace cs_rdf.Controllers
 					if(results is SparqlResultSet && results.Any())
 					{
 						SparqlResultSet rset = (SparqlResultSet) results;
-						int nbRes = 0;
 						IEnumerator<KeyValuePair<string, INode>> columns;
 						KeyValuePair<string, INode> col;
-						nbRes = rset.Count();
-						Console.WriteLine(nbRes+" entries found");
 						foreach(SparqlResult line in rset)
 						{
 							columns = line.GetEnumerator();
